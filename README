@@ -1,1 +1,0 @@
-这是一个基于python3.5的脚本开发脚手架，集成了mysql(sqlalchemy), rabbitmq, redis等常用的中间件，快速开发业务。
