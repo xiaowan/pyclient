@@ -1,4 +1,4 @@
-这是一个基于python3.5的脚本开发脚手架，集成了mysql(sqlalchemy), rabbitmq, redis等常用的中间件，快速开发业务。
+这是一个基于python3.5的脚本开发脚手架，集成了mysql(sqlalchemy), rabbitmq(pika), redis(redis)等常用的中间件，快速开发业务。
 具体的使用方法见 controllers 目录下的 Test.py 文件
 
 **demo**
