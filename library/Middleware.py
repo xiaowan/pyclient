@@ -8,6 +8,7 @@ import sys
 import json
 import traceback
 import pika
+import paho.mqtt.client as mqtt
 from oslo_context import context
 from conf import conf, log
 from library.Utils import Utils
@@ -95,5 +96,41 @@ def rabbitmqWorkerFactory(dsn='', exchange='', queue=''):
         channel.basic_consume(_deco, queue=queue, no_ack=False)
 
         channel.start_consuming()
+
+    return outer
+
+
+def mqttWorkerFactory(hostname='', port=0, username='', password='', topic='#'):
+    """ mqtt 工厂方法 """
+
+    def outer(func):
+        print("开始连接mqtt协议...")
+
+        # connection mq
+
+        def on_connect(client, userdata, flags, rc):
+            print("Connected with result code " + str(rc))
+            client.subscribe(topic)
+
+        @TimeExpense
+        def _deco(client, userdata, msg):
+            try:
+                print("\n" + Utils.currentTime() + " 开始执行业务方法")
+                func(client, userdata, msg)
+            except Exception as e:
+                print("业务方法异常")
+
+        client = mqtt.Client()
+        client.reinitialise(client_id="xxx", clean_session=False, userdata=None)
+        client.on_connect = on_connect
+        client.on_message = _deco
+
+        try:
+            client.username_pw_set(username=username, password=password)
+            client.connect(hostname, port, 60)
+            client.loop_forever()
+        except Exception as ex:
+            raise ex
+            print("mqtt服务异常")
 
     return outer
