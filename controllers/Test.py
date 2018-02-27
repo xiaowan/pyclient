@@ -20,7 +20,7 @@ class TestController(BaseController):
             print(user.nickname + '---' + user.loginname)
 
     def test_rabbitmq(self):
-        @rabbitmqWorkerFactory(conf.rabbitmq.dsn, 'facebook', 'ad')
+        @rabbitmqWorkerFactory(conf.rabbitmq.dsn, 'exchange_name', 'queue_name')
         def get_ad(ch, method, properties, body):
             """ 在这里处理队列信息 """
             print(body)
