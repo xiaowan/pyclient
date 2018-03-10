@@ -25,6 +25,6 @@ class TestController(BaseController):
 
     def test_rabbitmq(self):
         @rabbitmqWorkerFactory(conf.rabbitmq.dsn, 'exchange_name', 'queue_name')
-        def get_ad(ch, method, properties, body):
+        def consum_mq(ch, method, properties, body):
             """ 在这里处理队列信息 """
             print(body)
