@@ -30,3 +30,7 @@ class BaseController(object):
         if cls._instance is None:
             cls._instance = cls()
         return cls._instance
+    
+    def prepare(self):
+        """ 如果有需要预先执行的逻辑，写在prepare方法中 """
+        pass

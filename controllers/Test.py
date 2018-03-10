@@ -10,6 +10,9 @@ class TestController(BaseController):
     # 该属性为默认执行该类的业务处理方法
     default_method = 'get_all_user'
 
+    def prepare(self):
+        print("这里是预执行的逻辑")
+
     def __init__(self):
         self.testModel = TestModel.getInstance()
         super().__init__()

@@ -37,6 +37,7 @@ class Execute(object):
                 self._method = executor_obj.default_method.lower()
 
         try:
+            executor_obj.prepare()
             method = getattr(executor_obj, self._method)
             method(*self._args, **self._kwargs)
         except Exception:
