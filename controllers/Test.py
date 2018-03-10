@@ -3,7 +3,7 @@
 from conf import conf
 from .Base import BaseController
 from models.Test import TestModel
-from library.Middleware import rabbitmqWorkerFactory
+from library.Middleware import rabbitmqWorkerFactory, Clear
 
 
 class TestController(BaseController):
@@ -14,6 +14,7 @@ class TestController(BaseController):
         self.testModel = TestModel.getInstance()
         super().__init__()
 
+    @Clear
     def get_all_user(self):
         users = self.testModel.get_all_user()
         for user in users:

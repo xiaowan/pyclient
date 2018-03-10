@@ -39,11 +39,12 @@ class Execute(object):
         try:
             method = getattr(executor_obj, self._method)
             method(*self._args, **self._kwargs)
-        except Exception as ex:
-            raise ex
+        except Exception:
+            raise
         finally:
-            with closing(G.getInstance()):
-                pass
+            if not G.getInstance().is_cleard:
+                with closing(G.getInstance()):
+                    pass
 
 
 def main():
@@ -51,6 +52,7 @@ def main():
         Execute().run()
         return 0
     except Exception as ex:
-        raise ex
+        print(ex)
     finally:
         return 1
+

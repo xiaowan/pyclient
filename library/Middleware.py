@@ -23,10 +23,10 @@ def Clear(func):
     def _deco(*args, **kwargs):
         try:
             func(*args, **kwargs)
-        except Exception as e:
-            raise e
+        except Exception :
+            raise
         finally:
-            G.getInstance().clear()
+            G.getInstance().close()
 
     return _deco
 

@@ -13,6 +13,13 @@ class G(object):
     """ 全局类 """
     _instance = None
 
+    _cleard = False
+
+    @property
+    def is_cleard(self):
+        """ 请求结束，是否已经清理结尾 """
+        return self._cleard
+
     @classmethod
     def getInstance(cls):
         if cls._instance is None:
@@ -48,3 +55,5 @@ class G(object):
 
         # rabbitmq
         del self.rabbitmq.channel
+
+        self._cleard = True
