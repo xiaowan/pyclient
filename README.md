@@ -17,4 +17,4 @@
 python3.5 cli.py --executer=plan --args=one,two --kwargs=three:hello
 
 **使用方法截图**
-![Alt text](https://github.com/xiaowan/pyadmin/blob/master/snapshot/testcontroller.jpeg)
+![Alt text](https://github.com/xiaowan/pyadmin/blob/master/snapshot/logincontroller.jpeg)
