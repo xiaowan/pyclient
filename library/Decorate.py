@@ -6,6 +6,7 @@
 
 import sys
 import time
+from oslo_utils import timeutils
 from conf import log
 
 from sqlalchemy.orm.session import Session
@@ -27,10 +28,9 @@ def TimeExpense(func):
     """ 统计 job 执行时长 """
 
     def _deco(*args, **kwargs):
-        start = int(time.time())
-        func(*args, **kwargs)
-        end = int(time.time())
-        log.info("脚本运行结束,共计耗时 : {expense} 秒".format(expense=end - start))
+        with timeutils.StopWatch() as w:
+            func(*args, **kwargs)
+        log.info("脚本运行结束,共计耗时 : {expense} 秒".format(expense=int(w.elapsed())))
         sys.stdout.flush()
 
     return _deco
