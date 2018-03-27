@@ -8,8 +8,7 @@ import time
 
 
 class TestController(BaseController):
-    # 该属性为默认执行该类的业务处理方法
-    default_method = 'get_all_user'
+    default_method = 'get_all_user'  # 该属性为默认执行该类的业务处理方法
 
     def __init__(self):
         self.testModel = TestModel.getInstance()
@@ -20,6 +19,10 @@ class TestController(BaseController):
 
     @Clear
     def get_all_user(self):
+        """
+        Clear装饰器可手动控制资源的释放
+        如不使用该装饰器则默认由框架自动管理
+        """
         users = self.testModel.get_all_user()
         for user in users:
             print(user.nickname + '---' + user.loginname)
@@ -32,5 +35,5 @@ class TestController(BaseController):
 
     @TimeExpense
     def test_time_expense(self):
+        """ 方法执行时间函数 """
         time.sleep(3)
-
