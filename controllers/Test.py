@@ -37,3 +37,8 @@ class TestController(BaseController):
     def test_time_expense(self):
         """ 方法执行时间函数 """
         time.sleep(3)
+
+    def test_params(self, one, two, three="hello"):
+        print(one)
+        print(two)
+        print(three)
