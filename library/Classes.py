@@ -23,6 +23,10 @@ class Classes(object):
         """ 所有业务相关类的基类 """
 
         @property
+        def session(self):
+            return self.g.session
+
+        @property
         def rabbitmq(self):
             return self.g.rabbitmq
 

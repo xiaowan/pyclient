@@ -1,37 +1,10 @@
 #!/usr/bin/env python3.5
 
-from library.Decorate import DI, Transaction
-from library.G import G
+from library.Decorate import Transaction
+from library.Classes import Classes
 
 
-@DI(g=G.getInstance())
-class BaseModel(object):
-    _instance = None
-
-    def __init__(self):
-        pass
-
-    @property
-    def session(self):
-        return self.g.session
-
-    @property
-    def log(self):
-        return self.g.log
-
-    @property
-    def utils(self):
-        return self.g.utils
-
-    @property
-    def rabbitmq(self):
-        return self.g.rabbitmq
-
-    @classmethod
-    def getInstance(cls):
-        if cls._instance is None:
-            cls._instance = cls()
-        return cls._instance
+class BaseModel(Classes.BaseMinix):
 
     @Transaction(name="session")
     def save(self, obj):
