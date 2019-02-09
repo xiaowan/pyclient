@@ -1,0 +1,8 @@
+.idea
+*.pyc
+conf/__pycache__/
+controllers/__pycache__/
+library/__pycache__/
+logs/
+mapper/__pycache__/
+dao/__pycache__/
