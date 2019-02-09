@@ -5,6 +5,7 @@ from .Base import BaseController
 from models.Test import TestModel
 from library.Middleware import rabbitmqWorkerFactory, Clear, TimeExpense
 import time
+from automaton import machines
 
 
 class TestController(BaseController):
@@ -42,3 +43,14 @@ class TestController(BaseController):
         print(one)
         print(two)
         print(three)
+
+    def test_frame(self):
+        print("+++++++++++++++++")
+        m = machines.FiniteMachine()
+        m.add_state('up')
+        m.add_state('down')
+        m.add_transition('down', 'up', 'jump')
+        m.add_transition('up', 'down', 'fall')
+        m.default_start_state = 'down'
+        print(m.pformat())
+        print("+++++++++++++++++")
