@@ -6,6 +6,8 @@
 
 import sys
 import json
+import time
+import threading
 import traceback
 import pika
 import paho.mqtt.client as mqtt
@@ -96,6 +98,41 @@ def rabbitmqWorkerFactory(dsn='', exchange='', queue=''):
         channel.basic_consume(_deco, queue=queue, no_ack=False)
 
         channel.start_consuming()
+
+        class Heartbeat(threading.Thread):
+            def __init__(self, connection):
+                super(Heartbeat, self).__init__()
+                self.lock = threading.Lock()
+                self.connection = connection
+                self.quitflag = False
+                self.stopflag = True
+                self.setDaemon(True)
+
+            def run(self):
+                while not self.quitflag:
+                    time.sleep(10)
+                    self.lock.acquire()
+                    if self.stopflag:
+                        self.lock.release()
+                        continue
+                    try:
+                        self.connection.process_data_events()
+                    except Exception as ex:
+                        self.lock.release()
+                        return
+                    self.lock.release()
+
+            def startHeartbeat(self):
+                self.lock.acquire()
+                if self.quitflag == True:
+                    self.lock.release()
+                    return
+                self.stopflag = False
+                self.lock.release()
+
+        heartbeat = Heartbeat(connection)
+        heartbeat.start()
+        heartbeat.startHeartbeat()
 
     return outer
 
