@@ -49,3 +49,7 @@ class Classes(object):
         @property
         def redis(self):
             return self.g.redis
+
+        def prepare(self):
+            """ 如果有需要预先执行的逻辑，写在prepare方法中 """
+            pass

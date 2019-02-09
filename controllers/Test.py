@@ -2,13 +2,14 @@
 
 from conf import conf
 from .Base import BaseController
+from library.Classes import Classes
 from models.Test import TestModel
 from library.Middleware import rabbitmqWorkerFactory, Clear, TimeExpense
 import time
 from automaton import machines
 
 
-class TestController(BaseController):
+class TestController(Classes.BaseMinix):
     default_method = 'get_all_user'  # 该属性为默认执行该类的业务处理方法
 
     def __init__(self):

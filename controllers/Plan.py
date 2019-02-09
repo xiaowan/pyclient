@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from .Base import BaseController
+from library.Classes import Classes
 
 
-class PlanController(BaseController):
+class PlanController(Classes.BaseMinix):
     default_method = 'test'
 
     def test(self, one, two, three="hello"):
