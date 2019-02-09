@@ -21,7 +21,7 @@ class G(object):
         self.thread_local = threading.local()
         self.conf = conf
         self.utils = Utils
-        self._caller = None
+        self.log = log
 
     @property
     def is_cleard(self):
@@ -33,12 +33,6 @@ class G(object):
         if cls._instance is None:
             cls._instance = cls()
         return cls._instance
-
-    def __init__(self):
-        self.conf = conf
-        self.log = log
-        self.utils = Utils
-        self._session = None
 
     @property
     def session(self):
